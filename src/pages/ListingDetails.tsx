@@ -81,11 +81,21 @@ export default function ListingDetails() {
         return;
       }
 
-      const nights = Math.ceil((dateRange.to.getTime() - dateRange.from.getTime()) / (1000 * 60 * 60 * 24));
-      const subtotal = nights * listing.nightly_price_inr;
-      const taxes = Math.round(subtotal * 0.18); // 18% GST
-      const platformFee = Math.round(subtotal * 0.05); // 5% platform fee
-      const total = subtotal + taxes + platformFee;
+      // Use server-side calculation for security
+      const { data: costData, error: costError } = await supabase
+        .rpc('calculate_booking_cost', {
+          p_listing_id: id,
+          p_start_date: dateRange.from.toISOString().split('T')[0],
+          p_end_date: dateRange.to.toISOString().split('T')[0],
+        })
+        .single();
+
+      if (costError) throw costError;
+      if (!costData) {
+        toast.error('Unable to calculate booking cost');
+        setIsSubmitting(false);
+        return;
+      }
 
       const { error } = await supabase
         .from('bookings')
@@ -95,11 +105,11 @@ export default function ListingDetails() {
           pet_id: pets[0].id,
           start_date: dateRange.from.toISOString().split('T')[0],
           end_date: dateRange.to.toISOString().split('T')[0],
-          nights,
-          price_subtotal_inr: subtotal,
-          taxes_inr: taxes,
-          platform_fee_inr: platformFee,
-          total_inr: total,
+          nights: costData.nights,
+          price_subtotal_inr: costData.subtotal_inr,
+          taxes_inr: costData.taxes_inr,
+          platform_fee_inr: costData.platform_fee_inr,
+          total_inr: costData.total_inr,
           status: 'requested',
         });
 

@@ -448,6 +448,27 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       users: {
         Row: {
           created_at: string
@@ -521,7 +542,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      calculate_booking_cost: {
+        Args: { p_end_date: string; p_listing_id: string; p_start_date: string }
+        Returns: {
+          nights: number
+          platform_fee_inr: number
+          subtotal_inr: number
+          taxes_inr: number
+          total_inr: number
+        }[]
+      }
       expire_old_requests: { Args: never; Returns: undefined }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       overlap_check: {
         Args: { p_end: string; p_listing_id: string; p_start: string }
         Returns: boolean
@@ -529,7 +567,7 @@ export type Database = {
       uid: { Args: never; Returns: string }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "owner" | "host" | "admin" | "moderator"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -656,6 +694,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["owner", "host", "admin", "moderator"],
+    },
   },
 } as const
