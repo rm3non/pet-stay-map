@@ -42,7 +42,7 @@ export function ListingCard({ listing, onClick, isSelected, onHover }: ListingCa
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           {listing.verified && (
-            <Badge className="absolute right-2 top-2 animate-pulse bg-primary shadow-glow">
+            <Badge className="absolute right-2 top-2 bg-gradient-to-r from-[hsl(43,96%,56%)] to-[hsl(43,100%,65%)] text-primary shadow-glow">
               <CheckCircle2 className="mr-1 h-3 w-3" />
               Verified
             </Badge>
