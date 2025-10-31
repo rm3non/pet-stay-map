@@ -54,7 +54,7 @@ export function FiltersBar({ params, onApply, onClear }: FiltersBarProps) {
   };
 
   return (
-    <div className="sticky top-20 z-40 border-b bg-background/80 p-4 backdrop-blur-md">
+    <div className="sticky top-24 z-40 border-b bg-background/80 p-4 backdrop-blur-md sm:top-28">
       <div className="container mx-auto">
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6">
