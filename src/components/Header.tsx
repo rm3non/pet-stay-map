@@ -22,13 +22,13 @@ export function Header({ onAuthClick }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container flex h-24 items-center justify-between px-4 sm:h-28">
         <div className="flex items-center gap-6">
           <img 
             src={logo} 
             alt="PawMigos - Connecting pet lovers everywhere" 
-            className="h-20 w-auto sm:h-24"
+            className="h-20 w-auto sm:h-24 mix-blend-multiply"
           />
         </div>
 
