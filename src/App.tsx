@@ -9,6 +9,8 @@ import Dashboard from "./pages/Dashboard";
 import HostDashboard from "./pages/HostDashboard";
 import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
+import CreateListing from "./pages/CreateListing";
+import ManagePets from "./pages/ManagePets";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +26,8 @@ const App = () => (
           <Route path="/listing/:id" element={<ListingDetails />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/host" element={<HostDashboard />} />
+          <Route path="/host/listing/new" element={<CreateListing />} />
+          <Route path="/pets" element={<ManagePets />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />

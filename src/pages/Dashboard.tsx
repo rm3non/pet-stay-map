@@ -81,23 +81,13 @@ export default function Dashboard() {
             </TabsContent>
 
             <TabsContent value="pets" className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                <Card>
-                  <CardContent className="pt-6">
-                    <div className="flex items-center gap-4">
-                      <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
-                        <PawPrint className="h-8 w-8 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold">Add your first pet</h3>
-                        <p className="text-sm text-muted-foreground">Create a profile for your pet</p>
-                      </div>
-                    </div>
-                    <Button className="w-full mt-4" variant="outline">
-                      Add Pet
-                    </Button>
-                  </CardContent>
-                </Card>
+              <div className="text-center py-12">
+                <PawPrint className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">Manage your pets</h3>
+                <p className="text-muted-foreground mb-4">Add and manage pet profiles for bookings</p>
+                <Button variant="outline" asChild>
+                  <Link to="/pets">Manage Pets</Link>
+                </Button>
               </div>
             </TabsContent>
 

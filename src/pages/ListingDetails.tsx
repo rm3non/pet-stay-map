@@ -67,26 +67,48 @@ export default function ListingDetails() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch('/api/bookings/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      // First, get user's pets to find a matching one
+      const { data: pets } = await supabase
+        .from('pets')
+        .select('id')
+        .eq('owner_id', user.id)
+        .limit(1);
+
+      if (!pets || pets.length === 0) {
+        toast.error('Please add a pet profile first');
+        navigate('/pets');
+        setIsSubmitting(false);
+        return;
+      }
+
+      const nights = Math.ceil((dateRange.to.getTime() - dateRange.from.getTime()) / (1000 * 60 * 60 * 24));
+      const subtotal = nights * listing.nightly_price_inr;
+      const taxes = Math.round(subtotal * 0.18); // 18% GST
+      const platformFee = Math.round(subtotal * 0.05); // 5% platform fee
+      const total = subtotal + taxes + platformFee;
+
+      const { error } = await supabase
+        .from('bookings')
+        .insert({
           listing_id: id,
+          owner_id: user.id,
+          pet_id: pets[0].id,
           start_date: dateRange.from.toISOString().split('T')[0],
           end_date: dateRange.to.toISOString().split('T')[0],
-          pet_size: petSize,
-          note,
-        }),
-      });
+          nights,
+          price_subtotal_inr: subtotal,
+          taxes_inr: taxes,
+          platform_fee_inr: platformFee,
+          total_inr: total,
+          status: 'requested',
+        });
 
-      if (response.ok) {
-        toast.success('Booking request sent!');
-        navigate('/dashboard/bookings');
-      } else {
-        toast.error('Failed to create booking');
-      }
-    } catch (error) {
-      toast.error('An error occurred');
+      if (error) throw error;
+
+      toast.success('Booking request sent!');
+      navigate('/dashboard');
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to create booking');
     }
     setIsSubmitting(false);
   };

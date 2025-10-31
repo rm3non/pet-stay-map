@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { useAuth } from '@/hooks/use-auth';
 import { Navigate, Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -12,6 +13,26 @@ import { Plus, Home, Calendar, DollarSign, Star } from 'lucide-react';
 export default function HostDashboard() {
   const { user } = useAuth();
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [listings, setListings] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      fetchListings();
+    }
+  }, [user]);
+
+  const fetchListings = async () => {
+    const { data, error } = await supabase
+      .from('listings')
+      .select('*')
+      .eq('host_id', user?.id);
+
+    if (!error && data) {
+      setListings(data);
+    }
+    setIsLoading(false);
+  };
 
   if (!user) {
     return <Navigate to="/" replace />;
@@ -43,8 +64,8 @@ export default function HostDashboard() {
                 <Home className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">0</div>
-                <p className="text-xs text-muted-foreground">No active listings</p>
+                <div className="text-2xl font-bold">{listings.filter(l => l.status === 'active').length}</div>
+                <p className="text-xs text-muted-foreground">{listings.length === 0 ? 'No active listings' : 'Active listings'}</p>
               </CardContent>
             </Card>
 
@@ -90,21 +111,44 @@ export default function HostDashboard() {
             </TabsList>
 
             <TabsContent value="listings" className="space-y-4">
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="text-center py-12">
-                    <Home className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-lg font-semibold mb-2">No listings yet</h3>
-                    <p className="text-muted-foreground mb-4">Create your first listing to start hosting</p>
-                    <Button className="gradient-primary shadow-elegant" asChild>
-                      <Link to="/host/listing/new">
-                        <Plus className="mr-2 h-4 w-4" />
-                        Create Your First Listing
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              {isLoading ? (
+                <div className="text-center py-12 text-muted-foreground">Loading...</div>
+              ) : listings.length === 0 ? (
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="text-center py-12">
+                      <Home className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                      <h3 className="text-lg font-semibold mb-2">No listings yet</h3>
+                      <p className="text-muted-foreground mb-4">Create your first listing to start hosting</p>
+                      <Button className="gradient-primary shadow-elegant" asChild>
+                        <Link to="/host/listing/new">
+                          <Plus className="mr-2 h-4 w-4" />
+                          Create Your First Listing
+                        </Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {listings.map((listing) => (
+                    <Card key={listing.id}>
+                      <CardContent className="pt-6">
+                        <div className="space-y-2">
+                          <h3 className="font-semibold">{listing.title}</h3>
+                          <p className="text-sm text-muted-foreground">{listing.city}, {listing.state}</p>
+                          <div className="flex items-center justify-between pt-2">
+                            <span className="text-lg font-bold">₹{listing.nightly_price_inr}/night</span>
+                            <Badge variant={listing.status === 'active' ? 'default' : 'secondary'}>
+                              {listing.status}
+                            </Badge>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </TabsContent>
 
             <TabsContent value="bookings" className="space-y-4">
