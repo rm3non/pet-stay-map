@@ -3,7 +3,6 @@ import { Button } from './ui/button';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { LogOut } from 'lucide-react';
 import { toast } from 'sonner';
-import logo from '@/assets/pawmigos-logo.png';
 
 type HeaderProps = {
   onAuthClick: () => void;
@@ -25,11 +24,7 @@ export function Header({ onAuthClick }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b bg-background shadow-sm">
       <div className="container flex h-20 items-center justify-between px-4">
         <div className="flex items-center gap-6">
-          <img 
-            src={logo} 
-            alt="PawMigos - Connecting pet lovers everywhere" 
-            className="h-14 w-auto"
-          />
+          <h1 className="text-2xl font-bold text-primary">PawMigos</h1>
         </div>
 
         <div className="flex items-center gap-4">
