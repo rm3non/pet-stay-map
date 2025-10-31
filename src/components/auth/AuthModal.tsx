@@ -89,7 +89,7 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
                   onKeyDown={(e) => e.key === 'Enter' && handleSendOtp()}
                 />
               </div>
-              <Button onClick={handleSendOtp} disabled={isLoading} className="w-full">
+              <Button onClick={handleSendOtp} disabled={isLoading} className="gradient-primary w-full shadow-elegant">
                 {isLoading ? 'Sending...' : 'Send OTP'}
               </Button>
             </>
@@ -112,7 +112,7 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
                 <Button variant="outline" onClick={handleBack} className="flex-1">
                   Back
                 </Button>
-                <Button onClick={handleVerifyOtp} disabled={isLoading} className="flex-1">
+                <Button onClick={handleVerifyOtp} disabled={isLoading} className="gradient-primary flex-1 shadow-elegant">
                   {isLoading ? 'Verifying...' : 'Verify OTP'}
                 </Button>
               </div>

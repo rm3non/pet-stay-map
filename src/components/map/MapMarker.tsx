@@ -22,11 +22,11 @@ export function MapMarker({ listing, isSelected, isHovered, onClick }: MapMarker
       <button
         onClick={onClick}
         className={`
-          rounded-full px-3 py-1.5 text-sm font-semibold shadow-lg transition-all
+          rounded-full px-3 py-1.5 text-sm font-semibold shadow-lg transition-all duration-300
           ${
             isSelected || isHovered
-              ? 'scale-110 bg-primary text-primary-foreground'
-              : 'bg-background text-foreground hover:scale-105'
+              ? 'gradient-primary scale-110 text-primary-foreground shadow-glow'
+              : 'bg-background text-foreground hover:scale-105 hover:shadow-elegant'
           }
         `}
       >

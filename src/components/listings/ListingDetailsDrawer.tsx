@@ -251,7 +251,7 @@ export function ListingDetailsDrawer({
             </div>
 
             <Button
-              className="w-full"
+              className="gradient-primary w-full shadow-elegant"
               onClick={handleBooking}
               disabled={isSubmitting}
             >

@@ -34,7 +34,7 @@ export function ListingList({
   if (listings.length === 0) {
     return (
       <div className="flex h-full flex-col items-center justify-center p-8 text-center">
-        <div className="mb-4 text-6xl">🐾</div>
+        <div className="mb-4 text-6xl opacity-50">🐾</div>
         <h3 className="mb-2 text-lg font-semibold">No listings found</h3>
         <p className="text-sm text-muted-foreground">
           Try adjusting your filters or search in a different area

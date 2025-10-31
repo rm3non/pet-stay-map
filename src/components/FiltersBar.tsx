@@ -54,7 +54,7 @@ export function FiltersBar({ params, onApply, onClear }: FiltersBarProps) {
   };
 
   return (
-    <div className="sticky top-16 z-40 border-b bg-background p-4">
+    <div className="sticky top-16 z-40 border-b bg-background/80 p-4 backdrop-blur-md">
       <div className="container mx-auto">
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6">
@@ -137,11 +137,11 @@ export function FiltersBar({ params, onApply, onClear }: FiltersBarProps) {
             </Badge>
 
             <div className="ml-auto flex gap-2">
-              <Button variant="outline" size="sm" onClick={onClear}>
+              <Button variant="outline" size="sm" onClick={onClear} className="hover:bg-destructive/10 hover:text-destructive">
                 <X className="mr-1 h-4 w-4" />
                 Clear
               </Button>
-              <Button size="sm" onClick={handleApply}>
+              <Button size="sm" onClick={handleApply} className="gradient-primary shadow-elegant">
                 Apply Filters
               </Button>
             </div>

@@ -19,8 +19,8 @@ export function ListingCard({ listing, onClick, isSelected, onHover }: ListingCa
 
   return (
     <Card
-      className={`cursor-pointer transition-all hover:shadow-lg ${
-        isSelected ? 'ring-2 ring-primary' : ''
+      className={`group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-elegant ${
+        isSelected ? 'ring-2 ring-primary shadow-glow' : ''
       }`}
       onClick={onClick}
       onMouseEnter={() => onHover?.(listing)}
@@ -32,16 +32,17 @@ export function ListingCard({ listing, onClick, isSelected, onHover }: ListingCa
             <img
               src={photo.url}
               alt={photo.alt || title}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
               loading="lazy"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-muted text-muted-foreground">
-              No image
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-secondary text-muted-foreground">
+              🏠 No image
             </div>
           )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           {listing.verified && (
-            <Badge className="absolute right-2 top-2 bg-primary">
+            <Badge className="absolute right-2 top-2 animate-pulse bg-primary shadow-glow">
               <CheckCircle2 className="mr-1 h-3 w-3" />
               Verified
             </Badge>
@@ -81,7 +82,9 @@ export function ListingCard({ listing, onClick, isSelected, onHover }: ListingCa
           )}
 
           <div className="flex items-baseline gap-1">
-            <span className="text-lg font-bold">{formatINR(price)}</span>
+            <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-lg font-bold text-transparent">
+              {formatINR(price)}
+            </span>
             <span className="text-sm text-muted-foreground">/night</span>
           </div>
         </div>
