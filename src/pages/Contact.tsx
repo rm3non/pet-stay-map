@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react';
+import { Mail, MapPin, MessageSquare } from 'lucide-react';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import petsContactImage from '@/assets/pets-contact.jpg';
@@ -176,36 +176,13 @@ export default function Contact() {
                   <Card>
                     <CardContent className="pt-6">
                       <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-full bg-accent-mint/20 flex items-center justify-center flex-shrink-0">
-                          <Phone className="h-6 w-6 text-accent-mint" />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold mb-1">Phone</h3>
-                          <a 
-                            href="tel:+919876543210" 
-                            className="text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            +91 98765 43210
-                          </a>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            Mon-Sat, 9 AM - 6 PM IST
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card>
-                    <CardContent className="pt-6">
-                      <div className="flex items-start gap-4">
                         <div className="w-12 h-12 rounded-full bg-accent-coral/20 flex items-center justify-center flex-shrink-0">
                           <MapPin className="h-6 w-6 text-accent-coral" />
                         </div>
                         <div>
-                          <h3 className="font-semibold mb-1">Office</h3>
+                          <h3 className="font-semibold mb-1">Location</h3>
                           <p className="text-muted-foreground">
-                            Mumbai, Maharashtra<br />
-                            India 400001
+                            India
                           </p>
                         </div>
                       </div>

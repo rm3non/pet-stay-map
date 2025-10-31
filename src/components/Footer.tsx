@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Mail, MapPin } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -83,12 +83,8 @@ export function Footer() {
                 <span>support@pawmigos.com</span>
               </li>
               <li className="flex items-start gap-2 text-muted-foreground">
-                <Phone className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>+91 98765 43210</span>
-              </li>
-              <li className="flex items-start gap-2 text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>Mumbai, Maharashtra, India</span>
+                <span>India</span>
               </li>
             </ul>
           </div>
