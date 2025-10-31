@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { useAuth } from '@/hooks/use-auth';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -234,6 +235,7 @@ export default function ManagePets() {
         </div>
       </main>
 
+      <Footer />
       <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
     </div>
   );

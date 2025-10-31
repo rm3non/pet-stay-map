@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { useAuth } from '@/hooks/use-auth';
 import { Navigate, Link } from 'react-router-dom';
@@ -174,6 +175,7 @@ export default function HostDashboard() {
         </div>
       </main>
 
+      <Footer />
       <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
     </div>
   );

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { useAuth } from '@/hooks/use-auth';
 import { supabase } from '@/integrations/supabase/client';
@@ -303,6 +304,7 @@ export default function ListingDetails() {
         </div>
       </main>
 
+      <Footer />
       <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
     </div>
   );
