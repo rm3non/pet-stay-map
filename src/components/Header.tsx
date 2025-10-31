@@ -28,7 +28,7 @@ export function Header({ onAuthClick }: HeaderProps) {
           <img 
             src={logo} 
             alt="PawMigos - Connecting pet lovers everywhere" 
-            className="h-10 w-auto"
+            className="h-12 w-auto sm:h-14"
           />
         </div>
 
