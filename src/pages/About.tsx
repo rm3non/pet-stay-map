@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Shield, Users, Award } from 'lucide-react';
+import heroPetsImage from '@/assets/hero-pets-happy.jpg';
 
 export default function About() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -14,11 +15,18 @@ export default function About() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/10 via-accent-mint/10 to-accent-coral/10 py-20">
-          <div className="container px-4">
+        <section className="relative bg-gradient-to-br from-primary/10 via-accent-mint/10 to-accent-coral/10 py-20 overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={heroPetsImage} 
+              alt="Happy pets" 
+              className="w-full h-full object-cover opacity-20"
+            />
+          </div>
+          <div className="container px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">About PawMigos</h1>
-              <p className="text-xl text-muted-foreground">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">About PawMigos</h1>
+              <p className="text-xl text-muted-foreground animate-fade-in">
                 We're on a mission to make travel stress-free for pet parents across India
               </p>
             </div>
