@@ -14,6 +14,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { PawPrint, Plus, ArrowLeft } from 'lucide-react';
+import { z } from 'zod';
+
+const petSchema = z.object({
+  name: z.string().trim().min(1, 'Name is required').max(50, 'Name must be less than 50 characters'),
+  type: z.enum(['dog', 'cat']),
+  breed: z.string().trim().max(100, 'Breed must be less than 100 characters').optional().or(z.literal('')),
+  size: z.enum(['xs', 's', 'm', 'l', 'xl']),
+  notes: z.string().trim().max(500, 'Notes must be less than 500 characters').optional().or(z.literal('')),
+});
 
 interface Pet {
   id: string;
@@ -60,12 +69,22 @@ export default function ManagePets() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const result = petSchema.safeParse(formData);
+    if (!result.success) {
+      toast.error(result.error.errors[0].message);
+      return;
+    }
+
     const { error } = await supabase
       .from('pets')
-      .insert({
+      .insert([{
         owner_id: user?.id,
-        ...formData,
-      });
+        name: result.data.name,
+        type: result.data.type,
+        breed: result.data.breed || '',
+        size: result.data.size,
+        notes: result.data.notes || '',
+      }]);
 
     if (error) {
       toast.error('Failed to add pet');
@@ -118,6 +137,7 @@ export default function ManagePets() {
                     <Input
                       id="name"
                       required
+                      maxLength={50}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Max"
@@ -141,6 +161,7 @@ export default function ManagePets() {
                     <Label htmlFor="breed">Breed</Label>
                     <Input
                       id="breed"
+                      maxLength={100}
                       value={formData.breed}
                       onChange={(e) => setFormData({ ...formData, breed: e.target.value })}
                       placeholder="Golden Retriever"
@@ -167,6 +188,7 @@ export default function ManagePets() {
                     <Label htmlFor="notes">Special Notes</Label>
                     <Textarea
                       id="notes"
+                      maxLength={500}
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                       placeholder="Any special care requirements..."
