@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/auth/AuthModal';
@@ -20,6 +20,40 @@ import cartoonPetsRelaxingImage from '@/assets/cartoon-pets-relaxing.jpg';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const heroRef = useRef<HTMLImageElement>(null);
+
+  // Parallax effect for hero
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const scrolled = window.scrollY;
+        const parallaxSpeed = 0.5;
+        heroRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Scroll animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   const faqs = [
     {
@@ -57,9 +91,10 @@ const Index = () => {
         <section className="relative bg-gradient-to-br from-primary/10 via-accent-mint/10 to-accent-coral/10 py-20 lg:py-32 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
+              ref={heroRef}
               src={heroCartoonPetsImage} 
               alt="Happy cartoon pets traveling with their families in India" 
-              className="w-full h-full object-cover opacity-30"
+              className="parallax-bg w-full h-full object-cover opacity-30"
             />
           </div>
           <div className="container px-4 relative z-10">
@@ -72,7 +107,7 @@ const Index = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
                 <Link to="/search">
-                  <Button size="lg" className="gradient-primary shadow-elegant w-full sm:w-auto">
+                  <Button size="lg" className="gradient-primary shadow-elegant animate-pulse-subtle w-full sm:w-auto">
                     <Search className="mr-2 h-5 w-5" />
                     Start Searching
                   </Button>
@@ -101,9 +136,9 @@ const Index = () => {
               </div>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-12">
-                <Card className="hover-scale">
+                <Card className="hover-scale animate-on-scroll">
                   <CardContent className="pt-6 text-center">
-                    <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                    <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 animate-float">
                       <Heart className="h-6 w-6 text-primary" />
                     </div>
                     <h3 className="font-semibold mb-2">Pet-First</h3>
@@ -113,9 +148,9 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="hover-scale">
+                <Card className="hover-scale animate-on-scroll delay-100">
                   <CardContent className="pt-6 text-center">
-                    <div className="mx-auto w-12 h-12 rounded-full bg-accent-mint/20 flex items-center justify-center mb-4">
+                    <div className="mx-auto w-12 h-12 rounded-full bg-accent-mint/20 flex items-center justify-center mb-4 animate-float" style={{ animationDelay: '0.2s' }}>
                       <Shield className="h-6 w-6 text-accent-mint" />
                     </div>
                     <h3 className="font-semibold mb-2">Verified Hosts</h3>
@@ -125,9 +160,9 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="hover-scale">
+                <Card className="hover-scale animate-on-scroll delay-200">
                   <CardContent className="pt-6 text-center">
-                    <div className="mx-auto w-12 h-12 rounded-full bg-accent-coral/20 flex items-center justify-center mb-4">
+                    <div className="mx-auto w-12 h-12 rounded-full bg-accent-coral/20 flex items-center justify-center mb-4 animate-float" style={{ animationDelay: '0.4s' }}>
                       <Users className="h-6 w-6 text-accent-coral" />
                     </div>
                     <h3 className="font-semibold mb-2">Community</h3>
@@ -137,9 +172,9 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="hover-scale">
+                <Card className="hover-scale animate-on-scroll delay-300">
                   <CardContent className="pt-6 text-center">
-                    <div className="mx-auto w-12 h-12 rounded-full bg-accent-gold/20 flex items-center justify-center mb-4">
+                    <div className="mx-auto w-12 h-12 rounded-full bg-accent-gold/20 flex items-center justify-center mb-4 animate-float" style={{ animationDelay: '0.6s' }}>
                       <Award className="h-6 w-6 text-accent-gold" />
                     </div>
                     <h3 className="font-semibold mb-2">Excellence</h3>
@@ -176,7 +211,7 @@ const Index = () => {
               <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">How It Works</h2>
               
               <div className="space-y-8">
-                <div className="grid gap-6 md:grid-cols-[auto_1fr] items-start">
+                <div className="grid gap-6 md:grid-cols-[auto_1fr] items-start animate-on-scroll">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <span className="text-2xl font-bold text-primary">1</span>
                   </div>
@@ -193,17 +228,19 @@ const Index = () => {
                             </p>
                           </div>
                         </div>
-                        <img 
-                          src={cartoonPetsSearchingImage} 
-                          alt="Cartoon pets searching for pet-friendly accommodations" 
-                          className="rounded-lg w-full h-48 object-cover"
-                        />
+                        <div className="image-zoom-hover rounded-lg overflow-hidden">
+                          <img 
+                            src={cartoonPetsSearchingImage} 
+                            alt="Cartoon pets searching for pet-friendly accommodations" 
+                            className="rounded-lg w-full h-48 object-cover"
+                          />
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-[auto_1fr] items-start">
+                <div className="grid gap-6 md:grid-cols-[auto_1fr] items-start animate-on-scroll delay-100">
                   <div className="w-16 h-16 rounded-full bg-accent-mint/20 flex items-center justify-center flex-shrink-0">
                     <span className="text-2xl font-bold text-accent-mint">2</span>
                   </div>
@@ -220,17 +257,19 @@ const Index = () => {
                             </p>
                           </div>
                         </div>
-                        <img 
-                          src={cartoonPetsTravelingImage} 
-                          alt="Cartoon pets ready to travel with luggage" 
-                          className="rounded-lg w-full h-48 object-cover"
-                        />
+                        <div className="image-zoom-hover rounded-lg overflow-hidden">
+                          <img 
+                            src={cartoonPetsTravelingImage} 
+                            alt="Cartoon pets ready to travel with luggage" 
+                            className="rounded-lg w-full h-48 object-cover"
+                          />
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-[auto_1fr] items-start">
+                <div className="grid gap-6 md:grid-cols-[auto_1fr] items-start animate-on-scroll delay-200">
                   <div className="w-16 h-16 rounded-full bg-accent-coral/20 flex items-center justify-center flex-shrink-0">
                     <span className="text-2xl font-bold text-accent-coral">3</span>
                   </div>
@@ -247,17 +286,19 @@ const Index = () => {
                             </p>
                           </div>
                         </div>
-                        <img 
-                          src={cartoonPetsWithHostImage} 
-                          alt="Cartoon pets meeting their friendly host" 
-                          className="rounded-lg w-full h-48 object-cover"
-                        />
+                        <div className="image-zoom-hover rounded-lg overflow-hidden">
+                          <img 
+                            src={cartoonPetsWithHostImage} 
+                            alt="Cartoon pets meeting their friendly host" 
+                            className="rounded-lg w-full h-48 object-cover"
+                          />
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-[auto_1fr] items-start">
+                <div className="grid gap-6 md:grid-cols-[auto_1fr] items-start animate-on-scroll delay-300">
                   <div className="w-16 h-16 rounded-full bg-accent-gold/20 flex items-center justify-center flex-shrink-0">
                     <span className="text-2xl font-bold text-accent-gold">4</span>
                   </div>
@@ -274,11 +315,13 @@ const Index = () => {
                             </p>
                           </div>
                         </div>
-                        <img 
-                          src={cartoonPetsRelaxingImage} 
-                          alt="Cartoon pets relaxing in their comfortable accommodation" 
-                          className="rounded-lg w-full h-48 object-cover"
-                        />
+                        <div className="image-zoom-hover rounded-lg overflow-hidden">
+                          <img 
+                            src={cartoonPetsRelaxingImage} 
+                            alt="Cartoon pets relaxing in their comfortable accommodation" 
+                            className="rounded-lg w-full h-48 object-cover"
+                          />
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -287,7 +330,7 @@ const Index = () => {
 
               <div className="text-center mt-12">
                 <Link to="/search">
-                  <Button size="lg" className="gradient-primary shadow-elegant">
+                  <Button size="lg" className="gradient-primary shadow-elegant animate-pulse-subtle">
                     <Search className="mr-2 h-5 w-5" />
                     Start Searching
                   </Button>
