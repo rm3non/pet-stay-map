@@ -22,17 +22,25 @@ const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const heroRef = useRef<HTMLImageElement>(null);
 
-  // Parallax effect for hero
+  // Parallax effect for hero (throttled for performance)
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      if (heroRef.current) {
-        const scrolled = window.scrollY;
-        const parallaxSpeed = 0.5;
-        heroRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (heroRef.current) {
+            const scrolled = window.scrollY;
+            const parallaxSpeed = 0.3;
+            heroRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
