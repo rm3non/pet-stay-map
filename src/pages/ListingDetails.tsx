@@ -287,9 +287,7 @@ export default function ListingDetails() {
                       value={note}
                       onChange={(e) => setNote(e.target.value)}
                       rows={3}
-                      maxLength={500}
                     />
-                    <p className="text-xs text-muted-foreground">{note.length}/500 characters</p>
                   </div>
 
                   <Button 

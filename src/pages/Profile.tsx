@@ -12,12 +12,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { User, Mail, Phone, Save } from 'lucide-react';
-import { z } from 'zod';
-
-const profileSchema = z.object({
-  name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
-  phone: z.string().regex(/^\+?[0-9]{10,15}$/, 'Please enter a valid phone number').optional().or(z.literal('')),
-});
 
 export default function Profile() {
   const { user } = useAuth();
@@ -52,24 +46,12 @@ export default function Profile() {
   };
 
   const handleSave = async () => {
-    // Validate input data
-    const validationResult = profileSchema.safeParse({
-      name: profile.name,
-      phone: profile.phone,
-    });
-    
-    if (!validationResult.success) {
-      toast.error(validationResult.error.errors[0].message);
-      return;
-    }
-
     setIsLoading(true);
-    const validated = validationResult.data;
     const { error } = await supabase
       .from('users')
       .update({
-        name: validated.name,
-        phone: validated.phone || null,
+        name: profile.name,
+        phone: profile.phone,
       })
       .eq('id', user?.id);
 
@@ -112,7 +94,6 @@ export default function Profile() {
                       value={profile.name}
                       onChange={(e) => setProfile({ ...profile, name: e.target.value })}
                       placeholder="Your name"
-                      maxLength={100}
                     />
                   </div>
                 </div>
@@ -143,10 +124,8 @@ export default function Profile() {
                       value={profile.phone}
                       onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
                       placeholder="+91 1234567890"
-                      maxLength={15}
                     />
                   </div>
-                  <p className="text-xs text-muted-foreground">Format: +91 followed by 10 digits</p>
                 </div>
 
                 <Button 
