@@ -12,11 +12,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import heroPetsImage from '@/assets/hero-pets-happy.jpg';
-import petsSearchingImage from '@/assets/pets-searching.jpg';
-import petsTravelingImage from '@/assets/pets-traveling.jpg';
-import petsWithHostImage from '@/assets/pets-with-host.jpg';
-import petsRelaxingImage from '@/assets/pets-relaxing.jpg';
+import heroCartoonPetsImage from '@/assets/hero-cartoon-pets.jpg';
+import cartoonPetsSearchingImage from '@/assets/cartoon-pets-searching.jpg';
+import cartoonPetsTravelingImage from '@/assets/cartoon-pets-traveling.jpg';
+import cartoonPetsWithHostImage from '@/assets/cartoon-pets-with-host.jpg';
+import cartoonPetsRelaxingImage from '@/assets/cartoon-pets-relaxing.jpg';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -57,9 +57,9 @@ const Index = () => {
         <section className="relative bg-gradient-to-br from-primary/10 via-accent-mint/10 to-accent-coral/10 py-20 lg:py-32 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
-              src={heroPetsImage} 
-              alt="Happy pets enjoying their stay" 
-              className="w-full h-full object-cover opacity-20"
+              src={heroCartoonPetsImage} 
+              alt="Happy cartoon pets traveling with their families in India" 
+              className="w-full h-full object-cover opacity-30"
             />
           </div>
           <div className="container px-4 relative z-10">
@@ -198,8 +198,8 @@ const Index = () => {
                           </div>
                         </div>
                         <img 
-                          src={petsSearchingImage} 
-                          alt="Finding the perfect pet-friendly stay" 
+                          src={cartoonPetsSearchingImage} 
+                          alt="Cartoon pets searching for pet-friendly accommodations" 
                           className="rounded-lg w-full h-48 object-cover"
                         />
                       </div>
@@ -225,8 +225,8 @@ const Index = () => {
                           </div>
                         </div>
                         <img 
-                          src={petsTravelingImage} 
-                          alt="Booking your pet-friendly accommodation" 
+                          src={cartoonPetsTravelingImage} 
+                          alt="Cartoon pets ready to travel with luggage" 
                           className="rounded-lg w-full h-48 object-cover"
                         />
                       </div>
@@ -252,8 +252,8 @@ const Index = () => {
                           </div>
                         </div>
                         <img 
-                          src={petsWithHostImage} 
-                          alt="Connecting with your pet-friendly host" 
+                          src={cartoonPetsWithHostImage} 
+                          alt="Cartoon pets meeting their friendly host" 
                           className="rounded-lg w-full h-48 object-cover"
                         />
                       </div>
@@ -279,8 +279,8 @@ const Index = () => {
                           </div>
                         </div>
                         <img 
-                          src={petsRelaxingImage} 
-                          alt="Pets enjoying their comfortable stay" 
+                          src={cartoonPetsRelaxingImage} 
+                          alt="Cartoon pets relaxing in their comfortable accommodation" 
                           className="rounded-lg w-full h-48 object-cover"
                         />
                       </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Mail, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Instagram } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -70,21 +70,6 @@ export function Footer() {
                 <Link to="/host/safety" className="text-muted-foreground hover:text-primary transition-colors">
                   Safety Tips
                 </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className="font-bold text-lg mb-4">Contact</h3>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2 text-muted-foreground">
-                <Mail className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>support@pawmigos.com</span>
-              </li>
-              <li className="flex items-start gap-2 text-muted-foreground">
-                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>India</span>
               </li>
             </ul>
           </div>
