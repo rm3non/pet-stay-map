@@ -52,12 +52,12 @@ export type Database = {
           nights: number | null
           owner_id: string
           payment_ref: string | null
-          payout_status: string | null
+          payout_status: Database["public"]["Enums"]["payout_status"] | null
           pet_id: string
           platform_fee_inr: number
           price_subtotal_inr: number
           start_date: string
-          status: string | null
+          status: Database["public"]["Enums"]["booking_status"] | null
           taxes_inr: number
           total_inr: number
         }
@@ -69,12 +69,12 @@ export type Database = {
           nights?: number | null
           owner_id: string
           payment_ref?: string | null
-          payout_status?: string | null
+          payout_status?: Database["public"]["Enums"]["payout_status"] | null
           pet_id: string
           platform_fee_inr?: number
           price_subtotal_inr: number
           start_date: string
-          status?: string | null
+          status?: Database["public"]["Enums"]["booking_status"] | null
           taxes_inr?: number
           total_inr: number
         }
@@ -86,12 +86,12 @@ export type Database = {
           nights?: number | null
           owner_id?: string
           payment_ref?: string | null
-          payout_status?: string | null
+          payout_status?: Database["public"]["Enums"]["payout_status"] | null
           pet_id?: string
           platform_fee_inr?: number
           price_subtotal_inr?: number
           start_date?: string
-          status?: string | null
+          status?: Database["public"]["Enums"]["booking_status"] | null
           taxes_inr?: number
           total_inr?: number
         }
@@ -568,6 +568,16 @@ export type Database = {
     }
     Enums: {
       app_role: "owner" | "host" | "admin" | "moderator"
+      booking_status:
+        | "requested"
+        | "accepted"
+        | "declined"
+        | "paid"
+        | "checked_in"
+        | "completed"
+        | "cancelled"
+        | "expired"
+      payout_status: "pending" | "paid" | "hold"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -696,6 +706,17 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["owner", "host", "admin", "moderator"],
+      booking_status: [
+        "requested",
+        "accepted",
+        "declined",
+        "paid",
+        "checked_in",
+        "completed",
+        "cancelled",
+        "expired",
+      ],
+      payout_status: ["pending", "paid", "hold"],
     },
   },
 } as const
