@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram } from 'lucide-react';
-import pawmigosLogo from '@/assets/pawmigos-logo-horizontal.png';
 
 export function Footer() {
   return (
@@ -9,7 +8,7 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* About Section */}
           <div>
-            <img src={pawmigosLogo} alt="PawMigos Logo" className="h-10 w-auto mb-4" />
+            <h3 className="font-bold text-lg mb-4">PawMigos</h3>
             <p className="text-sm text-muted-foreground mb-4">
               India's trusted platform for pet-friendly accommodations. Find the perfect home for your furry friends.
             </p>

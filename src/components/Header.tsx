@@ -4,7 +4,6 @@ import { Avatar, AvatarFallback } from './ui/avatar';
 import { LogOut, Menu, Home, Calendar, MessageSquare, User, Building, Info, HelpCircle, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import { Link, useNavigate } from 'react-router-dom';
-import pawmigosLogo from '@/assets/pawmigos-logo-horizontal.png';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,8 +33,8 @@ export function Header({ onAuthClick }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background shadow-sm">
       <div className="container flex h-20 items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-3">
-          <img src={pawmigosLogo} alt="PawMigos Logo" className="h-12 w-auto" />
+        <Link to="/" className="flex items-center gap-6">
+          <h1 className="text-2xl font-bold text-primary">PawMigos</h1>
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">

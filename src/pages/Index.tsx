@@ -152,19 +152,15 @@ const Index = () => {
 
               <Card className="bg-gradient-to-br from-primary/5 to-accent-mint/5">
                 <CardContent className="pt-6">
-                  <h3 className="text-2xl font-bold mb-4 text-center">Our Impact</h3>
-                  <div className="grid gap-6 md:grid-cols-3 text-center">
+                  <h3 className="text-2xl font-bold mb-6 text-center">Our Launch</h3>
+                  <div className="text-center space-y-4">
                     <div>
-                      <div className="text-4xl font-bold text-primary mb-2">5000+</div>
-                      <p className="text-muted-foreground">Happy Pets</p>
+                      <div className="text-4xl font-bold text-primary mb-2">Launching in Ahmedabad</div>
+                      <p className="text-muted-foreground">Your pet-friendly stays start here</p>
                     </div>
-                    <div>
-                      <div className="text-4xl font-bold text-accent-mint mb-2">500+</div>
-                      <p className="text-muted-foreground">Verified Listings</p>
-                    </div>
-                    <div>
-                      <div className="text-4xl font-bold text-accent-coral mb-2">50+</div>
-                      <p className="text-muted-foreground">Cities Covered</p>
+                    <div className="pt-4 border-t">
+                      <div className="text-2xl font-semibold text-accent-mint mb-2">Coming Soon</div>
+                      <p className="text-muted-foreground">More cities across India</p>
                     </div>
                   </div>
                 </CardContent>
