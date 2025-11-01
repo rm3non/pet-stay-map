@@ -94,7 +94,7 @@ const Index = () => {
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">Who We Are</h2>
                 <p className="text-lg text-muted-foreground">
-                  Founded in 2024, PawMigos was born from a simple idea: every pet deserves a comfortable home, 
+                  Founded in 2025, PawMigos was born from a simple idea: every pet deserves a comfortable home, 
                   especially when traveling. We've built India's first dedicated platform connecting pet owners 
                   with verified, pet-friendly accommodations.
                 </p>
@@ -120,7 +120,7 @@ const Index = () => {
                     </div>
                     <h3 className="font-semibold mb-2">Verified Hosts</h3>
                     <p className="text-sm text-muted-foreground">
-                      All hosts are thoroughly vetted for safety and quality
+                      All hosts are thoroughly vetted for safety and quality using Govt issued IDs
                     </p>
                   </CardContent>
                 </Card>
