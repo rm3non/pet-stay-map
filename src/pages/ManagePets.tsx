@@ -14,6 +14,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { PawPrint, Plus, ArrowLeft } from 'lucide-react';
+import { z } from 'zod';
+
+const petSchema = z.object({
+  name: z.string().trim().min(1, 'Name is required').max(50, 'Name must be less than 50 characters'),
+  type: z.enum(['dog', 'cat'], { errorMap: () => ({ message: 'Please select a valid pet type' }) }),
+  breed: z.string().trim().max(100, 'Breed must be less than 100 characters').optional(),
+  size: z.enum(['xs', 's', 'm', 'l', 'xl'], { errorMap: () => ({ message: 'Please select a valid size' }) }),
+  notes: z.string().trim().max(500, 'Notes must be less than 500 characters').optional(),
+});
 
 interface Pet {
   id: string;
@@ -60,12 +69,24 @@ export default function ManagePets() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Validate input data
+    const validationResult = petSchema.safeParse(formData);
+    if (!validationResult.success) {
+      toast.error(validationResult.error.errors[0].message);
+      return;
+    }
+
+    const validated = validationResult.data;
     const { error } = await supabase
       .from('pets')
-      .insert({
+      .insert([{
         owner_id: user?.id,
-        ...formData,
-      });
+        name: validated.name,
+        type: validated.type,
+        breed: validated.breed || '',
+        size: validated.size,
+        notes: validated.notes || '',
+      }]);
 
     if (error) {
       toast.error('Failed to add pet');
@@ -171,7 +192,9 @@ export default function ManagePets() {
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                       placeholder="Any special care requirements..."
                       rows={3}
+                      maxLength={500}
                     />
+                    <p className="text-xs text-muted-foreground">{formData.notes.length}/500 characters</p>
                   </div>
 
                   <Button type="submit" className="w-full gradient-primary shadow-elegant">
